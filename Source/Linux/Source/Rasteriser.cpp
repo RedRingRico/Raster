@@ -72,7 +72,7 @@ namespace Raster
 		{
 			m_ppRenderBuffers[ i ] =
 				new RAS_BYTE[ m_Width*m_Height*m_BytesPerPixel ];
-			memset( m_ppRenderBuffers[ i ], 0xFF,
+			memset( m_ppRenderBuffers[ i ], 0xAA,
 				m_Width*m_Height*m_BytesPerPixel*sizeof( RAS_BYTE ) );
 		}
 
@@ -91,18 +91,24 @@ namespace Raster
 
 	void Rasteriser::Clear( )
 	{
-		for( RAS_UINT32 Column = 0; Column < m_Height; ++Column )
+		for( RAS_UINT32 Row = 0; Row < m_Height; ++Row )
 		{
-			for( RAS_UINT32 Row = 0; Row < m_Width; ++Row )
+			for( RAS_UINT32 Column = 0; Column < ( m_Width * 3 ); )
 			{
 				m_ppRenderBuffers[ m_CurrentBuffer ]
-					[ Row + ( Column * m_Width ) ] = m_ClearColour.Red;
+					[ Column + ( Row * m_Width * 3 ) ] = m_ClearColour.Red;
+				++Column;
+
 				m_ppRenderBuffers[ m_CurrentBuffer ]
-					[ Row + ( Column * m_Width ) ] = m_ClearColour.Green;
+					[ Column + ( Row * m_Width * 3 ) ] = m_ClearColour.Green;
+				++Column;
+
 				m_ppRenderBuffers[ m_CurrentBuffer ]
-					[ Row + ( Column * m_Width ) ] = m_ClearColour.Blue;
+					[ Column + ( Row * m_Width * 3 ) ] = m_ClearColour.Blue;
+				++Column;
 			}
 		}
+
 	}
 
 	RAS_BYTE * const &Rasteriser::GetCurrentBuffer( ) const

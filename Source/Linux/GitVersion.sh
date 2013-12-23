@@ -26,12 +26,12 @@ printf "#define GIT_COMMITHASHSHORT		\"%s\"\n" "$GITHASHSHORT" >> $GITHEADER
 printf "#define GIT_COMMITTERDATE		\"%s\"\n" "$GITDATE" >> $GITHEADER
 printf "#define GIT_ROLLINGCOUNT		%d\n\n" $GITROLLINGCOUNT >> $GITHEADER
 
-printf "#define GIT_MAJOR_BUILD_VERSION		%d\n" $MAJOR_BUILD_NUM >> $GITHEADER
-printf "#define GIT_MINOR_BUILD_VERSION		%d\n" $MINOR_BUILD_NUM >> $GITHEADER
-printf "#define GIT_REVISION_BUILD_NUM		%d\n" $REVISION_BUILD_NUM >> $GITHEADER
-printf "#define GIT_BUILD_NUM				%d\n" $BUILD_NUM >> $GITHEADER
-printf "#define GIT_BUILD_VERSION			\"%d.%d.%d.%d\"\n" $MAJOR_BUILD_NUM $MINOR_BUILD_NUM $REVISION_BUILD_NUM $BUILD_NUM >> $GITHEADER
-printf "#define GIT_TAG_NAME				\"%s\"\n\n" $TAG_NAME >> $GITHEADER
+printf "#define GIT_MAJOR_NUMBER		%d\n" $MAJOR_BUILD_NUM >> $GITHEADER
+printf "#define GIT_MINOR_NUMBER		%d\n" $MINOR_BUILD_NUM >> $GITHEADER
+printf "#define GIT_REVISION_NUMBER		%d\n" $REVISION_BUILD_NUM >> $GITHEADER
+printf "#define GIT_BUILD_NUMBER		%d\n" $BUILD_NUM >> $GITHEADER
+printf "#define GIT_BUILD_VERSION		\"%d.%d.%d.%d\"\n" $MAJOR_BUILD_NUM $MINOR_BUILD_NUM $REVISION_BUILD_NUM $BUILD_NUM >> $GITHEADER
+printf "#define GIT_TAG_NAME			\"%s\"\n\n" $TAG_NAME >> $GITHEADER
 printf "#endif\n" >> $GITHEADER
 
 printf "Done\n"

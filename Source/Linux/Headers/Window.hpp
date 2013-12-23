@@ -17,7 +17,8 @@ namespace Raster
 		~Window( );
 
 		RAS_UINT32 CreateWindow( const RAS_UINT32 p_X, const RAS_UINT32 p_Y,
-			const RAS_UINT32 p_Width, const RAS_UINT32 p_Height );
+			const RAS_UINT32 p_Width, const RAS_UINT32 p_Height,
+			RAS_BYTE * const &p_pPixelData );
 
 	private:
 		Window( const Window & );
@@ -30,6 +31,7 @@ namespace Raster
 		RAS_UINT32	m_Width;
 		RAS_UINT32	m_Height;
 		GLXContext	m_GLContext;
+		GLuint		m_RenderBuffer;
 	};
 }
 
