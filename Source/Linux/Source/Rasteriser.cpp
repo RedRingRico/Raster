@@ -104,5 +104,10 @@ namespace Raster
 			}
 		}
 	}
+
+	RAS_BYTE * const &Rasteriser::GetCurrentBuffer( ) const
+	{
+		return m_ppRenderBuffers[ m_CurrentBuffer ];
+	}
 }
 

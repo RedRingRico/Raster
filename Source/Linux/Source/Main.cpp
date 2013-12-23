@@ -10,6 +10,10 @@ int main( int p_Argc, char **p_ppArgv )
 	{
 		return RAS_FAIL;
 	}
+
+	RAS_BYTE *pBufferPtr = RAS_NULL;
+	pBufferPtr = pBufferPtr = TestRasteriser.GetCurrentBuffer( );
+
 	return 0;
 }
 

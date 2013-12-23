@@ -36,6 +36,8 @@ namespace Raster
 
 		void Clear( );
 
+		RAS_BYTE * const &GetCurrentBuffer( ) const;
+
 	private:
 		Rasteriser( const Rasteriser & );
 		Rasteriser &operator=( const Rasteriser & );
