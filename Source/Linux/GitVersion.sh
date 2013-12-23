@@ -15,7 +15,8 @@ REVISION_BUILD_NUM=`echo $VERSION_NUM | sed 's/-[^.]*$//' | sed -r 's/.*(.[0-9].
 BUILD_NUM=`echo $VERSION_NUM | sed -e 's/[0-9].[0-9].[0-9]//' -e 's/-//'`
 
 printf "Generating $2 Git Version Header...\n"
-printf "Revision: $GITROLLINGCOUNT [$GITHASH] $GITDATE\n"
+printf "Rolling Revision: $GITROLLINGCOUNT [$GITHASH] $GITDATE\n"
+printf "Tag: $TAG_NAME | Version ${MAJOR_BUILD_NUM}.${MINOR_BUILD_NUM}.${REVISION_BUILD_NUM}.${BUILD_NUM}\n"
 
 printf "#ifndef __%s_GITVERSION_HPP__\n" $PROJECT > $GITHEADER
 printf "#define __%s_GITVERSION_HPP__\n\n" $PROJECT >> $GITHEADER
