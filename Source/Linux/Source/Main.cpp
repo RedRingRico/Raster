@@ -20,7 +20,34 @@ int main( int p_Argc, char **p_ppArgv )
 
 	Raster::Window TestWindow;
 	TestWindow.CreateWindow( 0, 0, 800, 600, pBufferPtr );
-	sleep( 3 );
+
+	bool Run = true;
+	while( Run )
+	{
+		XEvent Event;
+		int Pending = XPending( TestWindow.GetDisplay( ) );
+		for( int i = 0; i < Pending; ++i )
+		{
+			XNextEvent( TestWindow.GetDisplay( ), &Event );
+
+			switch( Event.type )
+			{
+				case KeyPress:
+				{
+					KeySym Key = XLookupKeysym( &Event.xkey, 0 );
+					if( Key == XK_Escape )
+					{
+						Run = false;
+					}
+					break;
+				}
+				default:
+				{
+					break;
+				}
+			}
+		}
+	}
 
 	return 0;
 }

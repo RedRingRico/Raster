@@ -19,13 +19,14 @@ namespace Raster
 		RAS_UINT32 CreateWindow( const RAS_UINT32 p_X, const RAS_UINT32 p_Y,
 			const RAS_UINT32 p_Width, const RAS_UINT32 p_Height,
 			RAS_BYTE * const &p_pPixelData );
+		Display * const &GetDisplay( ) const;
 
 	private:
 		Window( const Window & );
 		Window &operator=( const Window & );
 
 		::Window	m_Window;
-		Display		*m_pDisplay;
+		::Display	*m_pDisplay;
 		RAS_UINT32	m_X;
 		RAS_UINT32	m_Y;
 		RAS_UINT32	m_Width;

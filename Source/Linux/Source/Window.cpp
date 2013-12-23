@@ -85,7 +85,8 @@ namespace Raster
 
 		WindowAttributes.background_pixmap = None;
 		WindowAttributes.border_pixel = 0;
-		WindowAttributes.event_mask = StructureNotifyMask;
+		WindowAttributes.event_mask = StructureNotifyMask | ExposureMask |
+			KeyPressMask | KeyReleaseMask;
 
 		m_X = p_X;
 		m_Y = p_Y;
@@ -160,6 +161,11 @@ namespace Raster
 		glDeleteBuffersARB( 1, &m_RenderBuffer );
 
 		return RAS_OK;
+	}
+
+	::Display * const &Window::GetDisplay( ) const
+	{
+		return m_pDisplay;
 	}
 }
 
