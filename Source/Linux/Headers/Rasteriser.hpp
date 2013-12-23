@@ -13,6 +13,13 @@ namespace Raster
 		COLOUR_FORMAT_COUNT
 	}COLOUR_FORMAT;
 
+	typedef struct __R_COLOUR
+	{
+		RAS_BYTE	Red;
+		RAS_BYTE	Green;
+		RAS_BYTE	Blue;
+	}COLOUR;
+
 	class Rasteriser
 	{
 	public:
@@ -23,17 +30,24 @@ namespace Raster
 			const RAS_UINT32 p_Height, const COLOUR_FORMAT p_ColourFormat,
 			const RAS_UINT32 p_BufferCount );
 
+		void SetClearColour( const RAS_BYTE p_Red = 255,
+			const RAS_BYTE p_Green = 255,
+			const RAS_BYTE p_Blue = 255 );
+
+		void Clear( );
+
 	private:
 		Rasteriser( const Rasteriser & );
 		Rasteriser &operator=( const Rasteriser & );
 
-		RAS_BYTE	**m_ppRenderBuffers;
-		RAS_UINT32	m_BufferCount;
-		RAS_UINT32	m_CurrentBuffer;
-		RAS_UINT32	m_Width;
-		RAS_UINT32	m_Height;
+		RAS_BYTE		**m_ppRenderBuffers;
+		RAS_UINT32		m_BufferCount;
+		RAS_UINT32		m_CurrentBuffer;
+		RAS_UINT32		m_Width;
+		RAS_UINT32		m_Height;
 		COLOUR_FORMAT	m_ColourFormat;
-		RAS_UINT32	m_BytesPerPixel;
+		RAS_UINT32		m_BytesPerPixel;
+		COLOUR			m_ClearColour;
 	};
 }
 

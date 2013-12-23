@@ -1,6 +1,7 @@
 #include <Rasteriser.hpp>
 #include <Memory.hpp>
 #include <iostream>
+#include <cstring>
 
 namespace Raster
 {
@@ -28,7 +29,7 @@ namespace Raster
 		{
 			case COLOUR_FORMAT_RGB8:
 			{
-				m_BytesPerPixel = 24;
+				m_BytesPerPixel = 3;
 				break;
 			}
 			default:
@@ -71,11 +72,37 @@ namespace Raster
 		{
 			m_ppRenderBuffers[ i ] =
 				new RAS_BYTE[ m_Width*m_Height*m_BytesPerPixel ];
+			memset( m_ppRenderBuffers[ i ], 0xFF,
+				m_Width*m_Height*m_BytesPerPixel*sizeof( RAS_BYTE ) );
 		}
 
 		std::cout << "[OK]" << std::endl;
 
 		return RAS_OK;
+	}
+
+	void Rasteriser::SetClearColour( const RAS_BYTE p_Red,
+		const RAS_BYTE p_Green, const RAS_BYTE p_Blue )
+	{
+		m_ClearColour.Red = p_Red;
+		m_ClearColour.Green = p_Green;
+		m_ClearColour.Blue = p_Blue;
+	}
+
+	void Rasteriser::Clear( )
+	{
+		for( RAS_UINT32 Column = 0; Column < m_Height; ++Column )
+		{
+			for( RAS_UINT32 Row = 0; Row < m_Width; ++Row )
+			{
+				m_ppRenderBuffers[ m_CurrentBuffer ]
+					[ Row + ( Column * m_Width ) ] = m_ClearColour.Red;
+				m_ppRenderBuffers[ m_CurrentBuffer ]
+					[ Row + ( Column * m_Width ) ] = m_ClearColour.Green;
+				m_ppRenderBuffers[ m_CurrentBuffer ]
+					[ Row + ( Column * m_Width ) ] = m_ClearColour.Blue;
+			}
+		}
 	}
 }
 
