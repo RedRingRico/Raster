@@ -1,0 +1,14 @@
+# RASTER | README #
+###################
+
+OVERVIEW
+Raster is a software renderer for MS DOS, FreeDOS, Linux, and Windows.  The
+goal is to provide an API for rendering to a block of memory which will hold
+the image data generated from polygons, textures, and materials provided by the
+user.
+
+For screen rendering, Xlib will be used for rendering into an OpenGL window on
+Linux, an OpenGL Win32 window will be provided for Windows, and direct
+rendering to the display device will occur on MS DOS and FreeDOS.
+
+
