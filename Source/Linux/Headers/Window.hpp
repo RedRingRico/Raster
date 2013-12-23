@@ -20,8 +20,13 @@ namespace Raster
 			const RAS_UINT32 p_Width, const RAS_UINT32 p_Height );
 
 	private:
+		Window( const Window & );
+		Window &operator=( const Window & );
+
 		::Window	m_Window;
 		Display		*m_pDisplay;
+		RAS_UINT32	m_X;
+		RAS_UINT32	m_Y;
 		RAS_UINT32	m_Width;
 		RAS_UINT32	m_Height;
 		GLXContext	m_GLContext;
