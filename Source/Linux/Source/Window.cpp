@@ -1,5 +1,6 @@
 #include <Window.hpp>
 #include <Memory.hpp>
+#include <Rasteriser.hpp>
 #include <GitVersion.hpp>
 #include <cstring>
 #include <cstdio>
@@ -22,12 +23,14 @@ namespace Raster
 		m_Width( 0 ),
 		m_Height( 0 ),
 		m_GLContext( RAS_NULL ),
-		m_RenderBuffer( 0 )
+		m_RenderBuffer( 0 ),
+		m_pRasteriser( RAS_NULL )
 	{
 	}
 
 	Window::~Window( )
 	{
+		SafeDelete( m_pRasteriser );
 		glXMakeCurrent( m_pDisplay, 0, 0 );
 		glXDestroyContext( m_pDisplay, m_GLContext );
 		XDestroyWindow( m_pDisplay, m_Window );
@@ -140,6 +143,7 @@ namespace Raster
 		glXMakeCurrent( m_pDisplay, m_Window, m_GLContext );
 		glClearColor( 1.0f, 0.0f, 0.0f, 1.0f );
 		glClear( GL_COLOR_BUFFER_BIT );
+		m_pRasteriser = new Rasteriser( );
 		glGenBuffersARB( 1, &m_RenderBuffer );
 		glBindBufferARB( GL_PIXEL_PACK_BUFFER_ARB, m_RenderBuffer );
 		glBufferDataARB( GL_PIXEL_PACK_BUFFER_ARB, 800*600*3, 0,

@@ -10,6 +10,7 @@
 
 namespace Raster
 {
+	class Rasteriser;
 	class Window
 	{
 	public:
@@ -19,6 +20,7 @@ namespace Raster
 		RAS_UINT32 CreateWindow( const RAS_UINT32 p_X, const RAS_UINT32 p_Y,
 			const RAS_UINT32 p_Width, const RAS_UINT32 p_Height,
 			RAS_BYTE * const &p_pPixelData );
+
 		Display * const &GetDisplay( ) const;
 
 	private:
@@ -33,6 +35,7 @@ namespace Raster
 		RAS_UINT32	m_Height;
 		GLXContext	m_GLContext;
 		GLuint		m_RenderBuffer;
+		Rasteriser	*m_pRasteriser;
 	};
 }
 
