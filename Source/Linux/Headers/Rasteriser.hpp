@@ -34,6 +34,9 @@ namespace Raster
 			const RAS_BYTE p_Green = 255,
 			const RAS_BYTE p_Blue = 255 );
 
+		void PlotPixel( const RAS_UINT32 p_X, const RAS_UINT32 p_Y,
+			const COLOUR &p_Colour );
+
 		void Clear( );
 
 		RAS_BYTE * const &GetCurrentBuffer( ) const;

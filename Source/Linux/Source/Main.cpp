@@ -17,11 +17,20 @@ int main( int p_Argc, char **p_ppArgv )
 	pBufferPtr = pBufferPtr = TestRasteriser.GetCurrentBuffer( );
 	TestRasteriser.SetClearColour( 0x20, 0, 0x20 );
 	TestRasteriser.Clear( );
+	Raster::COLOUR Pixel;
+	Pixel.Red = 0x00;
+	Pixel.Green = 0xFF;
+	Pixel.Blue = 0x00;
+	for( int i = 0; i < 200; ++i )
+	{
+		TestRasteriser.PlotPixel( 400, 300+i, Pixel );
+	}
 
 	Raster::Window TestWindow;
 	TestWindow.CreateWindow( 0, 0, 800, 600, pBufferPtr );
 
 	bool Run = true;
+
 	while( Run )
 	{
 		XEvent Event;

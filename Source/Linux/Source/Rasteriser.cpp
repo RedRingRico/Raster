@@ -89,6 +89,14 @@ namespace Raster
 		m_ClearColour.Blue = p_Blue;
 	}
 
+	void Rasteriser::PlotPixel( const RAS_UINT32 p_X, const RAS_UINT32 p_Y,
+		const COLOUR &p_Colour )
+	{
+		m_ppRenderBuffers[ m_CurrentBuffer ][ ( p_X + ( p_Y*m_Width ) )*3 ] = p_Colour.Red;
+		m_ppRenderBuffers[ m_CurrentBuffer ][ ( p_X + ( p_Y*m_Width ) )* 3+1 ] = p_Colour.Green;
+		m_ppRenderBuffers[ m_CurrentBuffer ][ ( p_X + ( p_Y*m_Width ) )*3+2 ] = p_Colour.Blue;
+	}
+
 	void Rasteriser::Clear( )
 	{
 		for( RAS_UINT32 Row = 0; Row < m_Height; ++Row )
