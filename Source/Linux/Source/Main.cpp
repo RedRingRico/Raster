@@ -42,6 +42,8 @@ int main( int p_Argc, char **p_ppArgv )
 
 	bool Run = true;
 
+	RAS_SINT32 XSpeed = 1, YSpeed = 1;
+
 	while( Run )
 	{
 		XEvent Event;
@@ -66,6 +68,21 @@ int main( int p_Argc, char **p_ppArgv )
 					break;
 				}
 			}
+		}
+
+		// The window should be updated here along with any rasterisation
+		// operations
+		TestRasteriser.Clear( );
+		TestRasteriser.DrawLine( Point1, Point2, Pixel );
+		Point1.X += XSpeed;
+//		Point1.Y += YSpeed;
+		if( Point1.X > 800 )
+		{
+			XSpeed -= XSpeed;
+		}
+		if( Point1.X <= 0 )
+		{
+			XSpeed -= XSpeed;
 		}
 	}
 

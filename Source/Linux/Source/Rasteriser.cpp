@@ -171,7 +171,20 @@ namespace Raster
 			}
 		}
 
-	}
+	}/*
+
+	void Rasteriser::SwapBuffers( )
+	{
+		glBindBufferARB( GL_PIXEL_PACK_BUFFER_ARB, m_RenderBuffer );
+		GLubyte *pBufferData = ( GLubyte * )glMapBufferARB(
+			GL_PIXEL_PACK_BUFFER_ARB, GL_WRITE_ONLY_ARB );
+		if( pBufferData )
+		{
+			memcpy( pBufferData, m_ppRenderBuffers[ 0 ], 800*600*3 );
+			glUnmapBufferARB( GL_PIXEL_PACK_BUFFER_ARB );
+		}
+		glBindBufferARB( GL_PIXEL_PACK_BUFFER_ARB, 0 );
+	}*/
 
 	RAS_BYTE * const &Rasteriser::GetCurrentBuffer( ) const
 	{

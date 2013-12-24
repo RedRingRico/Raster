@@ -48,6 +48,8 @@ namespace Raster
 
 		void Clear( );
 
+		void SwapBuffers( );
+
 		RAS_BYTE * const &GetCurrentBuffer( ) const;
 
 	private:

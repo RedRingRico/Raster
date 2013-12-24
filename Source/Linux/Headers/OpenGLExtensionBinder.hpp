@@ -1,0 +1,25 @@
+#ifndef __RASTER_OPENGLEXTENSIONBINDER_HPP__
+#define __RASTER_OPENGLEXTENSIONBINDER_HPP__
+
+#include <GL/gl.h>
+#include <GL/glx.h>
+#include <GL/glxext.h>
+#include <GL/glext.h>
+
+export "C"
+{
+PFNGLXCREATECONTEXTATTRIBSARBPROC	glXCreateContextAttribsARB;
+PFNGLMAPBUFFERARBPROC				glMapBufferARB;
+PFNGLUNMAPBUFFERARBPROC				glUnmapBufferARB;
+PFNGLBINDBUFFERARBPROC				glBindBufferARB;
+PFNGLGENBUFFERSARBPROC				glGenBuffersARB;
+PFNGLDELETEBUFFERSARBPROC			glDeletebuffersARB;
+PFNGLBUFFERDATAARBPROC				glBufferDataARB;
+}
+
+namespace Raster
+{
+}
+
+#endif // __RASTER_OPENGLEXTENSIONBINDER_HPP__
+
