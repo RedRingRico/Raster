@@ -20,6 +20,12 @@ namespace Raster
 		RAS_BYTE	Blue;
 	}COLOUR;
 
+	typedef struct __R_POINT
+	{
+		RAS_UINT32	X;
+		RAS_UINT32	Y;
+	}POINT;
+
 	class Rasteriser
 	{
 	public:
@@ -35,6 +41,9 @@ namespace Raster
 			const RAS_BYTE p_Blue = 255 );
 
 		void PlotPixel( const RAS_UINT32 p_X, const RAS_UINT32 p_Y,
+			const COLOUR &p_Colour );
+
+		void DrawLine( const POINT &p_Point1, const POINT &p_Point2,
 			const COLOUR &p_Colour );
 
 		void Clear( );

@@ -26,6 +26,17 @@ int main( int p_Argc, char **p_ppArgv )
 		TestRasteriser.PlotPixel( 400, 300+i, Pixel );
 	}
 
+	Raster::POINT Point1, Point2;
+	Point1.X = 800;
+	Point1.Y = 0;
+	Point2.X = 0;
+	Point2.Y = 600;
+	TestRasteriser.DrawLine( Point1, Point2, Pixel );
+	Point1.X = 800;
+	Point1.Y = 600;
+	Point2.X = 0;
+	Point2.Y = 0;
+	TestRasteriser.DrawLine( Point1, Point2, Pixel );
 	Raster::Window TestWindow;
 	TestWindow.CreateWindow( 0, 0, 800, 600, pBufferPtr );
 

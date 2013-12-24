@@ -2,6 +2,7 @@
 #include <Memory.hpp>
 #include <iostream>
 #include <cstring>
+#include <cmath>
 
 namespace Raster
 {
@@ -92,9 +93,62 @@ namespace Raster
 	void Rasteriser::PlotPixel( const RAS_UINT32 p_X, const RAS_UINT32 p_Y,
 		const COLOUR &p_Colour )
 	{
-		m_ppRenderBuffers[ m_CurrentBuffer ][ ( p_X + ( p_Y*m_Width ) )*3 ] = p_Colour.Red;
-		m_ppRenderBuffers[ m_CurrentBuffer ][ ( p_X + ( p_Y*m_Width ) )* 3+1 ] = p_Colour.Green;
-		m_ppRenderBuffers[ m_CurrentBuffer ][ ( p_X + ( p_Y*m_Width ) )*3+2 ] = p_Colour.Blue;
+		m_ppRenderBuffers[ m_CurrentBuffer ]
+			[ ( p_X + ( p_Y*m_Width ) ) * 3 ] = p_Colour.Red;
+		m_ppRenderBuffers[ m_CurrentBuffer ]
+			[ ( p_X + ( p_Y*m_Width ) )* 3 + 1 ] = p_Colour.Green;
+		m_ppRenderBuffers[ m_CurrentBuffer ]
+			[ ( p_X + ( p_Y*m_Width ) )* 3 + 2 ] = p_Colour.Blue;
+	}
+
+	void Rasteriser::DrawLine( const POINT &p_Point1, const POINT &p_Point2,
+		const COLOUR &p_Colour )
+	{
+		RAS_SINT32 dX, dY, sdX, sdY, dXAbs, dYAbs, X, Y, PointX, PointY;
+
+		dX = p_Point2.X - p_Point1.X;
+		dY = p_Point2.Y - p_Point1.Y;
+
+		dXAbs = abs( dX );
+		dYAbs = abs( dY );
+
+		sdX = dX > 0 ? 1 : -1;
+		sdY = dY > 0 ? 1 : -1;
+
+		X = dYAbs >> 1;
+		Y = dXAbs >> 1;
+
+		PointX = p_Point1.X;
+		PointY = p_Point1.Y;
+
+		if( dXAbs >= dYAbs )
+		{
+			for( RAS_SINT32 i = 0; i < dXAbs; ++i )
+			{
+				Y += dYAbs;
+				if( Y >= dXAbs )
+				{
+					Y -= dXAbs;
+					PointY += sdY;
+				}
+				PointX += sdX;
+				this->PlotPixel( PointX, PointY, p_Colour );
+			}
+		}
+		else
+		{
+			for( RAS_SINT32 i = 0; i < dYAbs; ++i )
+			{
+				X += dXAbs;
+				if( X >= dYAbs )
+				{
+					X -= dYAbs;
+					PointX += sdX;
+				}
+				PointY += sdY;
+				this->PlotPixel( PointX, PointY, p_Colour );
+			}
+		}
 	}
 
 	void Rasteriser::Clear( )
