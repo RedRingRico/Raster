@@ -15,9 +15,7 @@ namespace Raster
 		m_Y( 0 ),
 		m_Width( 0 ),
 		m_Height( 0 ),
-		m_GLContext( RAS_NULL ),
-		m_RenderBuffer( 0 ),
-		m_pRasteriser( RAS_NULL )
+		m_GLContext( RAS_NULL )
 	{
 	}
 
@@ -118,29 +116,7 @@ namespace Raster
 			True, GLContextAttribs );
 
 		glXMakeCurrent( m_pDisplay, m_Window, m_GLContext );
-		glClearColor( 1.0f, 0.0f, 0.0f, 1.0f );/*
-		glClear( GL_COLOR_BUFFER_BIT );
-		m_pRasteriser = new Rasteriser( );
-		
-		glGenBuffersARB( 1, &m_RenderBuffer );
-		glBindBufferARB( GL_PIXEL_PACK_BUFFER_ARB, m_RenderBuffer );
-		glBufferDataARB( GL_PIXEL_PACK_BUFFER_ARB, 800*600*3, 0,
-			GL_STREAM_READ_ARB );
-		GLubyte *pBufferData = ( GLubyte * )glMapBufferARB(
-			GL_PIXEL_PACK_BUFFER_ARB, GL_WRITE_ONLY_ARB );
-		// Copy pixel data
-		if( pBufferData )
-		{
-			memcpy( pBufferData, p_pPixelData, 800*600*3 );
-			glUnmapBufferARB( GL_PIXEL_PACK_BUFFER_ARB );
-		}
-		glBindBufferARB( GL_PIXEL_PACK_BUFFER_ARB, 0 );
-		// Deprecated in GL 3.0, this should be replaced with using a PBO
-		// to transfer data to a texture
-		glDrawPixels( 800, 600, GL_RGB, GL_UNSIGNED_BYTE, pBufferData );
-		glXSwapBuffers( m_pDisplay, m_Window );
-
-		glDeleteBuffersARB( 1, &m_RenderBuffer );*/
+		glClearColor( 1.0f, 0.0f, 0.0f, 1.0f );
 
 		return RAS_OK;
 	}

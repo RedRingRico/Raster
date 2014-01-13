@@ -208,6 +208,10 @@ namespace Raster
 			rglUnmapBuffer( GL_PIXEL_PACK_BUFFER_ARB );
 		}
 		rglBindBuffer( GL_PIXEL_PACK_BUFFER_ARB, 0 );
+
+		// Slow and deprecated!
+		// Replace this with a simple vertex+fragment shader which samples from
+		// a texture that pBufferData should write to
 		glDrawPixels( m_Width, m_Height, GL_RGB, GL_UNSIGNED_BYTE,
 			pBufferData );
 
