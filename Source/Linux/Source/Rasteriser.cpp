@@ -171,8 +171,8 @@ namespace Raster
 			}
 		}
 
-	}/*
-
+	}
+/*
 	void Rasteriser::SwapBuffers( )
 	{
 		glBindBufferARB( GL_PIXEL_PACK_BUFFER_ARB, m_RenderBuffer );

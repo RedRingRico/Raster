@@ -5,20 +5,26 @@
 #include <GL/glx.h>
 #include <GL/glxext.h>
 #include <GL/glext.h>
+#include <DataTypes.hpp>
 
-export "C"
+extern "C"
 {
-PFNGLXCREATECONTEXTATTRIBSARBPROC	glXCreateContextAttribsARB;
-PFNGLMAPBUFFERARBPROC				glMapBufferARB;
-PFNGLUNMAPBUFFERARBPROC				glUnmapBufferARB;
-PFNGLBINDBUFFERARBPROC				glBindBufferARB;
-PFNGLGENBUFFERSARBPROC				glGenBuffersARB;
-PFNGLDELETEBUFFERSARBPROC			glDeletebuffersARB;
-PFNGLBUFFERDATAARBPROC				glBufferDataARB;
+extern PFNGLXCREATECONTEXTATTRIBSARBPROC	__rglXCreateContextAttribs;
+extern PFNGLMAPBUFFERARBPROC				__rglMapBuffer;
+extern PFNGLUNMAPBUFFERARBPROC				__rglUnmapBuffer;
+extern PFNGLBINDBUFFERARBPROC				__rglBindBuffer;
+extern PFNGLGENBUFFERSARBPROC				__rglGenBuffers;
+extern PFNGLDELETEBUFFERSARBPROC			__rglDeletebuffers;
+extern PFNGLBUFFERDATAARBPROC				__rglBufferData;
 }
+
+#define rglGetProcAddress( p_Proc )\
+	glXGetProcAddressARB( ( const GLubyte * )p_Proc )
+#define rglMapBuffer	__rglMapBuffer
 
 namespace Raster
 {
+	RAS_BOOL InitialiseOpenGLExtensions( );
 }
 
 #endif // __RASTER_OPENGLEXTENSIONBINDER_HPP__
