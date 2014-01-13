@@ -9,6 +9,8 @@ typedef signed int			RAS_SINT32;
 typedef uint64_t			RAS_UINT64;
 typedef int64_t				RAS_SINT64;
 typedef unsigned char		RAS_BYTE;
+typedef float				RAS_FLOAT32;
+typedef double				RAS_FLOAT64;
 #define RAS_NULL nullptr
 typedef size_t				RAS_MEMSIZE;
 typedef RAS_UINT32			RAS_BOOL;
