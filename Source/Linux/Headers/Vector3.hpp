@@ -11,11 +11,19 @@ namespace Raster
 		Vector3( );
 		Vector3( const RAS_FLOAT32 p_X, const RAS_FLOAT32 p_Y,
 			const RAS_FLOAT32 p_Z );
+		Vector3( const Vector3 &p_Other );
 		~Vector3( );
 
 		void Set( const Vector3 &p_Other );
 		void Set( const RAS_FLOAT32 p_X, const RAS_FLOAT32 p_Y,
 			const RAS_FLOAT32 p_Z );
+		void SetX( const RAS_FLOAT32 p_X );
+		void SetY( const RAS_FLOAT32 p_Y );
+		void SetZ( const RAS_FLOAT32 p_Z );
+
+		RAS_FLOAT32 GetX( ) const;
+		RAS_FLOAT32 GetY( ) const;
+		RAS_FLOAT32 GetZ( ) const;
 
 		RAS_FLOAT32 GetMagnitude( ) const;
 		RAS_FLOAT32 GetMagnitudeSquare( ) const;
@@ -39,6 +47,7 @@ namespace Raster
 		Vector3 operator/( const Vector3 &p_Other ) const;
 		Vector3 operator/( const RAS_FLOAT32 p_Scalar ) const;
 
+		Vector3 &operator=( const Vector3 &p_Other );
 		Vector3 &operator+=( const Vector3 &p_Other );
 		Vector3 &operator-=( const Vector3 &p_Other );
 		Vector3 &operator*=( const Vector3 &p_Other );

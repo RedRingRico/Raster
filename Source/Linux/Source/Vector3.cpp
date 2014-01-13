@@ -2,12 +2,21 @@
 
 namespace Raster
 {
-	Vector3::Vector3( )
+	Vector3::Vector3( ) :
+		m_X( 0.0f ), m_Y( 0.0f ), m_Z( 0.0f )
 	{
 	}
 
 	Vector3::Vector3( const RAS_FLOAT32 p_X, const RAS_FLOAT32 p_Y,
-		const RAS_FLOAT32 p_Z )
+		const RAS_FLOAT32 p_Z ) :
+		m_X( p_X ), m_Y( p_Y ), m_Z( p_Z )
+	{
+	}
+
+	Vector3::Vector3( const Vector3 &p_Other ) :
+		m_X( p_Other.m_X ),
+		m_Y( p_Other.m_Y ),
+		m_Z( p_Other.m_Z )
 	{
 	}
 
@@ -17,11 +26,17 @@ namespace Raster
 
 	void Vector3::Set( const Vector3 &p_Other )
 	{
+		m_X = p_Other.m_X;
+		m_Y = p_Other.m_Y;
+		m_Z = p_Other.m_Z;
 	}
 
 	void Vector3::Set( const RAS_FLOAT32 p_X, const RAS_FLOAT32 p_Y,
 		const RAS_FLOAT32 p_Z )
 	{
+		m_X = p_X;
+		m_Y = p_Y;
+		m_Z = p_Z;
 	}
 
 	RAS_FLOAT32 Vector3::GetMagnitude( ) const
@@ -46,6 +61,7 @@ namespace Raster
 
 	void Vector3::Zero( )
 	{
+		m_X = m_Y = m_Z = 0.0f;
 	}
 
 	void Vector3::Clean( )
@@ -108,6 +124,15 @@ namespace Raster
 		Vector3 Divide;
 
 		return Divide;
+	}
+
+	Vector3 &Vector3::operator=( const Vector3 &p_Other )
+	{
+		m_X = p_Other.m_X;
+		m_Y = p_Other.m_Y;
+		m_Z = p_Other.m_Z;
+
+		return *this;
 	}
 
 	Vector3 &Vector3::operator+=( const Vector3 &p_Other )
