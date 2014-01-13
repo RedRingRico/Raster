@@ -22,6 +22,7 @@ namespace Raster
 			RAS_BYTE * const &p_pPixelData );
 
 		Display * const &GetDisplay( ) const;
+		::Window GetWindow( ) const;
 
 	private:
 		Window( const Window & );

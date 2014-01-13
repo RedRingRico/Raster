@@ -2,9 +2,12 @@
 #define __RASTER_DATATYPES_HPP__
 
 #include <cstddef>
+#include <stdint.h>
 
 typedef unsigned int		RAS_UINT32;
 typedef signed int			RAS_SINT32;
+typedef uint64_t			RAS_UINT64;
+typedef int64_t				RAS_SINT64;
 typedef unsigned char		RAS_BYTE;
 #define RAS_NULL nullptr
 typedef size_t				RAS_MEMSIZE;

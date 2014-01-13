@@ -14,13 +14,20 @@ extern PFNGLMAPBUFFERARBPROC				__rglMapBuffer;
 extern PFNGLUNMAPBUFFERARBPROC				__rglUnmapBuffer;
 extern PFNGLBINDBUFFERARBPROC				__rglBindBuffer;
 extern PFNGLGENBUFFERSARBPROC				__rglGenBuffers;
-extern PFNGLDELETEBUFFERSARBPROC			__rglDeletebuffers;
+extern PFNGLDELETEBUFFERSARBPROC			__rglDeleteBuffers;
 extern PFNGLBUFFERDATAARBPROC				__rglBufferData;
 }
 
 #define rglGetProcAddress( p_Proc )\
 	glXGetProcAddressARB( ( const GLubyte * )p_Proc )
-#define rglMapBuffer	__rglMapBuffer
+
+#define rglXCreateContextAttribs	__rglXCreateContextAttribs
+#define rglMapBuffer				__rglMapBuffer
+#define rglUnmapBuffer				__rglUnmapBuffer
+#define rglBindBuffer				__rglBindBuffer
+#define rglGenBuffers				__rglGenBuffers
+#define rglDeleteBuffers			__rglDeleteBuffers
+#define rglBufferData				__rglBufferData
 
 namespace Raster
 {

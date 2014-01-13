@@ -16,27 +16,27 @@ namespace Raster
 
 		GLStatus = ( ( __rglMapBuffer =
 			( PFNGLMAPBUFFERARBPROC )rglGetProcAddress(
-				"glMapBuffer" ) ) == RAS_NULL ) || GLStatus;
+				"glMapBufferARB" ) ) == RAS_NULL ) || GLStatus;
 
 		GLStatus = ( ( __rglUnmapBuffer =
 			( PFNGLUNMAPBUFFERARBPROC )rglGetProcAddress(
-				"glUnmapBuffer" ) ) == RAS_NULL ) || GLStatus;
+				"glUnmapBufferARB" ) ) == RAS_NULL ) || GLStatus;
 
 		GLStatus = ( ( __rglBindBuffer =
 			( PFNGLBINDBUFFERARBPROC )rglGetProcAddress(
-				"glBindBuffer" ) ) == RAS_NULL ) || GLStatus;
+				"glBindBufferARB" ) ) == RAS_NULL ) || GLStatus;
 
 		GLStatus = ( ( __rglGenBuffers =
 			( PFNGLGENBUFFERSARBPROC )rglGetProcAddress(
-				"glGenBuffers" ) ) == RAS_NULL ) || GLStatus;
+				"glGenBuffersARB" ) ) == RAS_NULL ) || GLStatus;
 
 		GLStatus = ( ( __rglDeleteBuffers =
 			( PFNGLDELETEBUFFERSARBPROC )rglGetProcAddress(
-				"glDeleteBuffers" ) ) == RAS_NULL ) || GLStatus;
+				"glDeleteBuffersARB" ) ) == RAS_NULL ) || GLStatus;
 
 		GLStatus = ( ( __rglBufferData =
 			( PFNGLBUFFERDATAARBPROC )rglGetProcAddress(
-				"glBufferData" ) ) == RAS_NULL ) || GLStatus;
+				"glBufferDataARB" ) ) == RAS_NULL ) || GLStatus;
 
 		GLStatus = ( ( __rglXCreateContextAttribs =
 			( PFNGLXCREATECONTEXTATTRIBSARBPROC )rglGetProcAddress(

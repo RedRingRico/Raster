@@ -2,6 +2,8 @@
 #define __RASTER_RASTERISER_HPP__
 
 #include <DataTypes.hpp>
+#include <GL/gl.h>
+#include <X11/Xlib.h>
 
 namespace Raster
 {
@@ -34,7 +36,8 @@ namespace Raster
 
 		RAS_UINT32 CreateSurfaces( const RAS_UINT32 p_Width,
 			const RAS_UINT32 p_Height, const COLOUR_FORMAT p_ColourFormat,
-			const RAS_UINT32 p_BufferCount );
+			const RAS_UINT32 p_BufferCount,
+			Window p_Window, Display * const &p_pDisplay );
 
 		void SetClearColour( const RAS_BYTE p_Red = 255,
 			const RAS_BYTE p_Green = 255,
@@ -52,6 +55,12 @@ namespace Raster
 
 		RAS_BYTE * const &GetCurrentBuffer( ) const;
 
+		RAS_UINT32 GetFrameCount( ) const;
+
+		RAS_UINT64 GetMinimumFrameTime( ) const;
+
+		RAS_UINT64 GetMaximumFrameTime( ) const;
+
 	private:
 		Rasteriser( const Rasteriser & );
 		Rasteriser &operator=( const Rasteriser & );
@@ -64,6 +73,16 @@ namespace Raster
 		COLOUR_FORMAT	m_ColourFormat;
 		RAS_UINT32		m_BytesPerPixel;
 		COLOUR			m_ClearColour;
+
+		GLuint			m_RenderBuffer;
+
+		RAS_UINT32		m_FrameCount;
+		RAS_UINT64		m_MinimumFrameTime;
+		RAS_UINT64		m_MaximumFrameTime;
+		RAS_UINT64		m_PreviousTime;
+
+		Window			m_Window;
+		Display			*m_pDisplay;
 	};
 }
 

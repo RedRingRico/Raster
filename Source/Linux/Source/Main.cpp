@@ -2,13 +2,17 @@
 #include <Rasteriser.hpp>
 #include <Window.hpp>
 #include <unistd.h>
+#include <Timer.hpp>
 
 int main( int p_Argc, char **p_ppArgv )
 {
 	Raster::Rasteriser TestRasteriser;
+	Raster::Window TestWindow;
+	TestWindow.CreateWindow( 0, 0, 800, 600, RAS_NULL );
+	Raster::StartTime( );
 
 	if( TestRasteriser.CreateSurfaces( 800, 600, Raster::COLOUR_FORMAT_RGB8,
-		2 ) != RAS_OK )
+		2, TestWindow.GetWindow( ), TestWindow.GetDisplay( ) ) != RAS_OK )
 	{
 		return RAS_FAIL;
 	}
@@ -37,12 +41,13 @@ int main( int p_Argc, char **p_ppArgv )
 	Point2.X = 0;
 	Point2.Y = 0;
 	TestRasteriser.DrawLine( Point1, Point2, Pixel );
-	Raster::Window TestWindow;
-	TestWindow.CreateWindow( 0, 0, 800, 600, pBufferPtr );
+
 
 	bool Run = true;
 
 	RAS_SINT32 XSpeed = 1, YSpeed = 1;
+
+	RAS_UINT64 TotalRunTime = Raster::GetTimeInMicroseconds( );
 
 	while( Run )
 	{
@@ -76,15 +81,33 @@ int main( int p_Argc, char **p_ppArgv )
 		TestRasteriser.DrawLine( Point1, Point2, Pixel );
 		Point1.X += XSpeed;
 //		Point1.Y += YSpeed;
-		if( Point1.X > 800 )
+/*		if( Point1.X > 800 )
 		{
 			XSpeed -= XSpeed;
 		}
 		if( Point1.X <= 0 )
 		{
 			XSpeed -= XSpeed;
-		}
+		}*/
+
+		TestRasteriser.SwapBuffers( );
 	}
+
+	RAS_UINT64 CompleteRunTime = Raster::GetTimeInMicroseconds( ) - TotalRunTime;
+
+	std::cout << std::endl << std::endl <<
+		"-- Post render information ---------------------------------"
+		"-------------------" << std::endl;
+	std::cout << "Runtime: " << CompleteRunTime << " microseconds" <<
+		std::endl;
+	std::cout << "Minimum frame time: " <<
+		TestRasteriser.GetMinimumFrameTime( ) << " microseconds" << std::endl;
+	std::cout << "Maximum frame time: " <<
+		TestRasteriser.GetMaximumFrameTime( ) << " microseconds" << std::endl;
+	std::cout << "Total rendered frames: " <<
+		TestRasteriser.GetFrameCount( ) << std::endl;
+	std::cout << "------------------------------------------------------------"
+		"-------------------" << std::endl;
 
 	return 0;
 }

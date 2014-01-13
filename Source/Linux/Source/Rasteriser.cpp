@@ -3,6 +3,8 @@
 #include <iostream>
 #include <cstring>
 #include <cmath>
+#include <OpenGLExtensionBinder.hpp>
+#include <Timer.hpp>
 
 namespace Raster
 {
@@ -13,18 +15,25 @@ namespace Raster
 		m_Width( 0 ),
 		m_Height( 0 ),
 		m_ColourFormat( COLOUR_FORMAT_COUNT ),
-		m_BytesPerPixel( 0 )
+		m_BytesPerPixel( 0 ),
+		m_FrameCount( 0 ),
+		m_MinimumFrameTime( 0ULL ),
+		m_MaximumFrameTime( 0ULL ),
+		m_pDisplay( RAS_NULL ),
+		m_Window( 0 )
 	{
 	}
 
 	Rasteriser::~Rasteriser( )
 	{
 		SafeDelete2DArray( m_ppRenderBuffers, m_BufferCount );
+		rglDeleteBuffers( 1, &m_RenderBuffer );
 	}
 
 	RAS_UINT32 Rasteriser::CreateSurfaces( const RAS_UINT32 p_Width,
 		const RAS_UINT32 p_Height, const COLOUR_FORMAT p_ColourFormat,
-		const RAS_UINT32 p_BufferCount )
+		const RAS_UINT32 p_BufferCount, Window p_Window,
+		Display * const &p_pDisplay )
 	{
 		switch( p_ColourFormat )
 		{
@@ -78,7 +87,19 @@ namespace Raster
 		}
 
 		std::cout << "[OK]" << std::endl;
+		
+		rglGenBuffers( 1, &m_RenderBuffer );
+		rglBindBuffer( GL_PIXEL_PACK_BUFFER_ARB, m_RenderBuffer );
+		rglBufferData( GL_PIXEL_PACK_BUFFER_ARB,
+			p_Width*p_Height*m_BytesPerPixel, 0, GL_STREAM_READ_ARB );
 
+		m_pDisplay = p_pDisplay;
+		m_Window = p_Window;
+
+		StartTime( );
+		m_PreviousTime = GetTimeInMicroseconds( );
+		m_MinimumFrameTime = 1000000ULL;
+		
 		return RAS_OK;
 	}
 
@@ -172,23 +193,64 @@ namespace Raster
 		}
 
 	}
-/*
+
 	void Rasteriser::SwapBuffers( )
 	{
-		glBindBufferARB( GL_PIXEL_PACK_BUFFER_ARB, m_RenderBuffer );
-		GLubyte *pBufferData = ( GLubyte * )glMapBufferARB(
+		RAS_UINT64 TheTime = GetTimeInMicroseconds( );
+
+		rglBindBuffer( GL_PIXEL_PACK_BUFFER_ARB, m_RenderBuffer );
+		GLubyte *pBufferData = ( GLubyte * )rglMapBuffer(
 			GL_PIXEL_PACK_BUFFER_ARB, GL_WRITE_ONLY_ARB );
 		if( pBufferData )
 		{
-			memcpy( pBufferData, m_ppRenderBuffers[ 0 ], 800*600*3 );
-			glUnmapBufferARB( GL_PIXEL_PACK_BUFFER_ARB );
+			memcpy( pBufferData, m_ppRenderBuffers[ 0 ],
+				m_Width * m_Height * m_BytesPerPixel );
+			rglUnmapBuffer( GL_PIXEL_PACK_BUFFER_ARB );
 		}
-		glBindBufferARB( GL_PIXEL_PACK_BUFFER_ARB, 0 );
-	}*/
+		rglBindBuffer( GL_PIXEL_PACK_BUFFER_ARB, 0 );
+		glDrawPixels( m_Width, m_Height, GL_RGB, GL_UNSIGNED_BYTE,
+			pBufferData );
+
+		glXSwapBuffers( m_pDisplay, m_Window );
+
+		RAS_UINT64 TimeDifference = TheTime - m_PreviousTime;
+
+		if( TimeDifference < m_MinimumFrameTime )
+		{
+			m_MinimumFrameTime = TimeDifference;
+		}
+
+		if( TimeDifference > m_MaximumFrameTime )
+		{
+			m_MaximumFrameTime = TimeDifference;
+		}
+
+		m_PreviousTime = TheTime;
+
+		++m_FrameCount;
+
+		std::cout << "Took " << TimeDifference << " microseconds to render "
+			"frame " << m_FrameCount << std::endl;
+	}
 
 	RAS_BYTE * const &Rasteriser::GetCurrentBuffer( ) const
 	{
 		return m_ppRenderBuffers[ m_CurrentBuffer ];
+	}
+
+	RAS_UINT32 Rasteriser::GetFrameCount( ) const
+	{
+		return m_FrameCount;
+	}
+
+	RAS_UINT64 Rasteriser::GetMinimumFrameTime( ) const
+	{
+		return m_MinimumFrameTime;
+	}
+
+	RAS_UINT64 Rasteriser::GetMaximumFrameTime( ) const
+	{
+		return m_MaximumFrameTime;
 	}
 }
 

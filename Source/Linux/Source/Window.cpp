@@ -4,17 +4,10 @@
 #include <GitVersion.hpp>
 #include <cstring>
 #include <cstdio>
+#include <OpenGLExtensionBinder.hpp>
 
 namespace Raster
 {
-	PFNGLXCREATECONTEXTATTRIBSARBPROC glXCreateContextAttribsARB = RAS_NULL;
-	PFNGLMAPBUFFERARBPROC glMapBufferARB = RAS_NULL;
-	PFNGLUNMAPBUFFERARBPROC glUnmapBufferARB = RAS_NULL;
-	PFNGLBINDBUFFERARBPROC glBindBufferARB = RAS_NULL;
-	PFNGLGENBUFFERSARBPROC glGenBuffersARB = RAS_NULL;
-	PFNGLDELETEBUFFERSARBPROC glDeleteBuffersARB = RAS_NULL;
-	PFNGLBUFFERDATAARBPROC glBufferDataARB = RAS_NULL;
-
 	Window::Window( ) :
 		m_Window( 0 ),
 		m_pDisplay( RAS_NULL ),
@@ -112,24 +105,6 @@ namespace Raster
 		XMapWindow( m_pDisplay, m_Window );
 		XRaiseWindow( m_pDisplay, m_Window );
 
-		glXCreateContextAttribsARB =
-			( PFNGLXCREATECONTEXTATTRIBSARBPROC )glXGetProcAddress(
-				( const GLubyte * )"glXCreateContextAttribsARB" );
-
-		glMapBufferARB = ( PFNGLMAPBUFFERARBPROC )glXGetProcAddress(
-			( const GLubyte * )"glMapBufferARB" );
-		
-		glUnmapBufferARB = ( PFNGLUNMAPBUFFERARBPROC )glXGetProcAddress(
-			( const GLubyte * )"glUnmapBufferARB" );
-		glBindBufferARB = ( PFNGLBINDBUFFERARBPROC )glXGetProcAddress(
-			( const GLubyte * )"glBindBufferARB" );
-		glGenBuffersARB = ( PFNGLGENBUFFERSARBPROC )glXGetProcAddress(
-			( const GLubyte * )"glGenBuffersARB" );
-		glDeleteBuffersARB = ( PFNGLDELETEBUFFERSARBPROC )glXGetProcAddress(
-			( const GLubyte * )"glDeleteBuffersARB" );
-		glBufferDataARB = ( PFNGLBUFFERDATAARBPROC )glXGetProcAddress(
-			( const GLubyte * )"glBufferDataARB" );
-
 		int GLContextAttribs [ ] =
 		{
 			GLX_CONTEXT_MAJOR_VERSION_ARB,	3,
@@ -137,13 +112,16 @@ namespace Raster
 			None
 		};
 
-		m_GLContext = glXCreateContextAttribsARB( m_pDisplay, FBConfig, 0,
+		InitialiseOpenGLExtensions( );
+
+		m_GLContext = rglXCreateContextAttribs( m_pDisplay, FBConfig, 0,
 			True, GLContextAttribs );
 
 		glXMakeCurrent( m_pDisplay, m_Window, m_GLContext );
-		glClearColor( 1.0f, 0.0f, 0.0f, 1.0f );
+		glClearColor( 1.0f, 0.0f, 0.0f, 1.0f );/*
 		glClear( GL_COLOR_BUFFER_BIT );
 		m_pRasteriser = new Rasteriser( );
+		
 		glGenBuffersARB( 1, &m_RenderBuffer );
 		glBindBufferARB( GL_PIXEL_PACK_BUFFER_ARB, m_RenderBuffer );
 		glBufferDataARB( GL_PIXEL_PACK_BUFFER_ARB, 800*600*3, 0,
@@ -162,7 +140,7 @@ namespace Raster
 		glDrawPixels( 800, 600, GL_RGB, GL_UNSIGNED_BYTE, pBufferData );
 		glXSwapBuffers( m_pDisplay, m_Window );
 
-		glDeleteBuffersARB( 1, &m_RenderBuffer );
+		glDeleteBuffersARB( 1, &m_RenderBuffer );*/
 
 		return RAS_OK;
 	}
@@ -170,6 +148,11 @@ namespace Raster
 	::Display * const &Window::GetDisplay( ) const
 	{
 		return m_pDisplay;
+	}
+
+	::Window Window::GetWindow( ) const
+	{
+		return m_Window;
 	}
 }
 
